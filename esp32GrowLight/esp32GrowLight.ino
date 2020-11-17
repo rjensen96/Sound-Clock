@@ -21,6 +21,16 @@ const int STATUS_LED = 10;
 const int POWER_PIN = 26;
 const int BUTTON_PIN = 37;
 
+
+// RYAN'S NOTES STARTING OUT:
+// This code is a fork of the esp32GrowLight from dajensen's GitHub.
+// need to change this to be the code for the SoundClock.
+
+// A useful resource for playing sound off an SD card in an Arduino Zero (not sure if we're going to use an SD card though)
+// https://www.arduino.cc/en/Reference/AudioZeroBegin
+
+
+
 /*
 static const char *ENUMERATE_TOPIC = "616b7b49-aab4-4cbb-a7a8-ba7ed744dc11/Enumerate";
 static const char *STATUS_TOPIC = "616b7b49-aab4-4cbb-a7a8-ba7ed744dc11/Status";
