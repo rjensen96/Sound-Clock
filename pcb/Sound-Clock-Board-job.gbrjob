@@ -1,0 +1,58 @@
+{
+  "Header":
+  {
+    "GenerationSoftware":
+    {
+      "Vendor":      "KiCad",
+      "Application": "Pcbnew",
+      "Version":     "5.1.8-db9833491~88~ubuntu20.04.1"
+    },
+    "CreationDate":  "2020-11-27T11:04:12-07:00"
+  },
+  "GeneralSpecs":
+  {
+    "ProjectId":
+    {
+      "Name": "Sound-Clock-Board",
+      "GUID": "536f756e-642d-4436-9c6f-636b2d426f61",
+      "Revision": "rev?"
+    },
+    "Size":
+    {
+      "X": 61.110,
+      "Y": 68.730
+    },
+    "LayerNumber": 2,
+    "BoardThickness":  1.600
+  },
+  "DesignRules":
+  [
+    {
+      "Layers": "Outer",
+      "PadToPad":  0.200,
+      "PadToTrack":  0.200,
+      "TrackToTrack":  0.200,
+      "MinLineWidth":  1.000
+    }
+  ],
+  "FilesAttributes":
+  [
+    {
+      "Path":  "Sound-Clock-Board-B_Cu.gbr",
+      "FileFunction":  "Copper,L2,Bot",
+      "FilePolarity":  "Positive"
+    },
+    {
+      "Path":  "Sound-Clock-Board-Edge_Cuts.gbr",
+      "FileFunction":  "Profile",
+      "FilePolarity":  "Positive"
+    }
+  ],
+  "MaterialStackup":
+  [
+    {
+      "Type":  "Copper",
+      "Notes":  "Layer B.Cu"
+    }
+  ]
+}
