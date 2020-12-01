@@ -9,10 +9,11 @@ G00 S15000 ( RPM spindle speed. )
 G01 F300.00000 ( Feedrate. )
 
 
-G00 Z25.00000 (Retract to tool change height)
+G00 Z5.00000 ( retract )
 
 G00 X61.40999 Y2.74000 ( rapid move to begin. )
 G01 Z-0.50000 F150.00000 ( plunge. )
+G04 P0 ( dwell for no time -- G64 should not smooth over this point )
 G01 F300.00000
 G01 X61.40999 Y33.74000
 G00 Z5.00000
