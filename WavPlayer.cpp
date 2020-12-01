@@ -25,7 +25,7 @@ i2s_pin_config_t WavPlayer::pin_config = {
 
 bool WavPlayer::StartPlaying(const unsigned char *data) {
     memcpy(&header,data,44);                     // Copy the header part of the wav data into our structure
-    DumpWavHeader(&header);                          // Dump the header data to serial, optional!
+    //DumpWavHeader(&header);                          // Dump the header data to serial, optional!
     if(ValidWavData(&header))
     {
         i2s_driver_install(i2s_num, &i2s_config, 0, NULL);        // ESP32 will allocated resources to run I2S
