@@ -65,14 +65,9 @@ void setup() {
   Serial.println("synced");
   
   LocalTime.setLocation(LOCAL_TIMEZONE);
-  // Serial.println("Local time: " + LocalTime.dateTime());
-  // Serial.println("Hour: " + String(LocalTime.hour()) + " Minute: " + String(LocalTime.minute()));      
 
-  Serial.println("Calculated hour: " + (String)time_hour);
-  Serial.println("Calculated minute: " + (String)time_minute);
-  
   speechstate = WAITING;
-
+  Serial.println("Done with setup()");
 }
 
 void loop() {
@@ -90,7 +85,6 @@ void loop() {
     speechstate = DoWaiting();
     break;
   }
-
 } 
 
 SpeechState SpeakHour() {
@@ -98,8 +92,9 @@ SpeechState SpeakHour() {
 
   if (!player.Update()) { 
     // this handles the change from hour to minute. No longer playing the hour.
+    Serial.println("minute " + (String)time_minute);
     player.StartPlaying(minuteWav[time_minute]);
-    Serial.println("minute...");
+    Serial.println("HOUR->MINUTE");
     rv = SPEAK_MINUTE;
   }
   return rv;
@@ -110,24 +105,27 @@ SpeechState SpeakMinute() {
 
     if (!player.Update()) {
       rv = WAITING;
-      Serial.println("waiting...");
+      Serial.println("MINUTE->WAITING");
     }
     return rv;
 }
 
 SpeechState DoWaiting() {
-  
-  SpeechState rv = SPEAK_HOUR;
+  SpeechState rv = WAITING;
   static uint32_t prevTime = 0;
   uint32_t currTime = millis();
+
   if(currTime - prevTime >= SPEAK_TIMEOUT) {
-    // this handles the change from hour to minute. No longer playing the hour.
+
+    // this handles the change from hour to minute. We are done playing the hour.  Now changing states to the SPEAK_MINUTE state.
     time_hour = LocalTime.hour() % 12;
     time_minute = LocalTime.minute() / 5 * 5;
-
+    Serial.println("Got time: hour " + (String)time_hour + " and minute " + (String)time_minute);
+    
+    Serial.println("hour " + (String)time_hour);
     player.StartPlaying(hourWav[time_hour]);
+    Serial.println("WAITING->HOUR");
     rv = SPEAK_HOUR;
-    Serial.println("hour...");
     prevTime = currTime;
   }
   events();
