@@ -17,22 +17,22 @@ wifi_config cfg {
 };
 */
 
-/*
+
 wifi_config cfg {
   "monstrosity",          // ssid
   "91Manassas!",          // password
   "broker.hivemq.com",        // mqtt_server
   1883                   // mqtt_port, default is 1883
 };
-*/
+
+/*
 wifi_config cfg {
   "Lambchops",          // ssid
   "assets=liabilities+equity",          // password
   "broker.hivemq.com",        // mqtt_server
   1883                   // mqtt_port, default is 1883
 };
-
-
+*/
 
 // Using the music teacher wifi, talking to the cloud hub
 /*
