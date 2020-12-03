@@ -17,6 +17,8 @@ const int STATUS_LED = 10;
 const int BUTTON_PIN = 37;
 const int SPEAK_TIMEOUT = 5000;
 
+int touchThreshold = 60; // copper plate sensitivity level
+
 // TODO: 
 // update IDE... need spiffs
 // look at the DAC audio guy's article
@@ -113,14 +115,24 @@ SpeechState SpeakMinute() {
 
 SpeechState DoWaiting() {
   SpeechState rv = WAITING;
-  static uint32_t prevTime = 0;
+  
   uint32_t currTime = millis();
-
-  if(currTime - prevTime >= SPEAK_TIMEOUT) {
+  static uint32_t prevTime = 0;
+  
+  static int touchFrames;
+  int touchTriggerFrames = 10;
+  
+  if(touchRead(T0) < touchThreshold) {
+    touchFrames++;
+  } else {
+    touchFrames = 0;
+  }
+  
+  if((touchFrames > touchTriggerFrames) && (currTime - prevTime >= SPEAK_TIMEOUT)) {
 
     // this handles the change from hour to minute. We are done playing the hour.  Now changing states to the SPEAK_MINUTE state.
-   time_hour = LocalTime.hour() % 12;
-   time_minute = LocalTime.minute() / 5 * 5;
+    time_hour = LocalTime.hour() % 12;
+    time_minute = LocalTime.minute() / 5 * 5;
     Serial.println("Got time: hour " + (String)time_hour + " and minute " + (String)time_minute);
     
     Serial.println("hour " + (String)time_hour);
@@ -129,7 +141,9 @@ SpeechState DoWaiting() {
     rv = SPEAK_HOUR;
     prevTime = currTime;
   }
-  Serial.println(touchRead(T0));
+  
+//  Serial.println(touchRead(T0)); // very useful in determining threshold - prints pin reading
+  
   events();
   return rv;
 }
