@@ -94,11 +94,10 @@ SpeechState SpeakHour() {
 
   if (!player.Update()) { 
     // this handles the change from hour to minute. No longer playing the hour.
-//    Serial.println("minute " + (String)time_minute);
-//    player.StartPlaying(minuteWav[time_minute]);
-//    Serial.println("HOUR->MINUTE");
-//    rv = SPEAK_MINUTE;
-  rv = WAITING;
+    Serial.println("minute " + (String)time_minute);
+    player.StartPlaying(minuteWav[time_minute]);
+    Serial.println("HOUR->MINUTE");
+    rv = SPEAK_MINUTE;
   }
   return rv;
 }
@@ -113,12 +112,11 @@ SpeechState SpeakMinute() {
     return rv;
 }
 
-SpeechState DoWaiting() {
-  SpeechState rv = WAITING;
-  
+bool IsTriggered() {
+  bool rv = false;
   uint32_t currTime = millis();
   static uint32_t prevTime = 0;
-  
+
   static int touchFrames;
   int touchTriggerFrames = 10;
   
@@ -128,7 +126,19 @@ SpeechState DoWaiting() {
     touchFrames = 0;
   }
   
-  if((touchFrames > touchTriggerFrames) && (currTime - prevTime >= SPEAK_TIMEOUT)) {
+  if(touchFrames > touchTriggerFrames){ 
+    if(currTime - prevTime >= SPEAK_TIMEOUT) {
+      prevTime = currTime;
+      rv = true;
+    }
+  }
+  return rv;
+}
+
+SpeechState DoWaiting() {
+  SpeechState rv = WAITING;
+  
+  if(IsTriggered()) {
 
     // this handles the change from hour to minute. We are done playing the hour.  Now changing states to the SPEAK_MINUTE state.
     time_hour = LocalTime.hour() % 12;
@@ -139,7 +149,6 @@ SpeechState DoWaiting() {
     player.StartPlaying(hourWav[time_hour]);
     Serial.println("WAITING->HOUR");
     rv = SPEAK_HOUR;
-    prevTime = currTime;
   }
 //  Serial.println(touchRead(T0));
   events();

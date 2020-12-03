@@ -59,7 +59,10 @@ bool WavPlayer::DonePlaying() {
 }
 
 bool WavPlayer::Update() {
-    if(isValid) {
+    if(DonePlaying())
+      return false;
+      
+    if(isValid && DataIdx < header.DataSize) {
         uint8_t Mono[4];                             // This holds the data we actually send to the I2S if mono sound
         const unsigned char *Data;                   // Points to the data we are going to send                                              
         size_t BytesWritten;                         // Returned by the I2S write routine, we are not interested in it
@@ -80,10 +83,6 @@ bool WavPlayer::Update() {
 
         i2s_write(i2s_num,Data,4,&BytesWritten, portMAX_DELAY); 
         DataIdx+=header.BlockAlign;                            // increase the data index to next next sample
-        if(DataIdx>=header.DataSize){               // If we gone past end of data reset back to beginning
-          if(DonePlaying())
-            isValid = false;                   
-        }
         return true;
     }
 
