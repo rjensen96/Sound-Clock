@@ -35,11 +35,27 @@ bool WavPlayer::StartPlaying(const unsigned char *data) {
         i2s_set_sample_rates(i2s_num, header.SampleRate);                   //set sample rate 
         TheData=data + sizeof(header);                                      // set to start of data  
         DataIdx = 0;
+        play_start_time = millis();
+        play_end_time = play_start_time + (header.DataSize * 1000 / header.ByteRate * 2);
+        Serial.println("Will play for: " + (String)(play_end_time - play_start_time));
         isValid = true;
 //        Serial.println("StartPlaying: Valid header");
     }
     else
         isValid = false;
+}
+
+bool WavPlayer::DonePlaying() {
+  bool rv = true;
+
+  if(isValid) {
+    rv = false;
+    if(millis() >= play_end_time){
+      rv = true;
+    }
+  }
+
+  return rv;
 }
 
 bool WavPlayer::Update() {
@@ -65,6 +81,7 @@ bool WavPlayer::Update() {
         i2s_write(i2s_num,Data,4,&BytesWritten, portMAX_DELAY); 
         DataIdx+=header.BlockAlign;                            // increase the data index to next next sample
         if(DataIdx>=header.DataSize){               // If we gone past end of data reset back to beginning
+          if(DonePlaying())
             isValid = false;                   
         }
         return true;

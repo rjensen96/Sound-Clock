@@ -93,12 +93,12 @@ SpeechState SpeakHour() {
   SpeechState rv = SPEAK_HOUR;
 
   if (!player.Update()) { 
-    delay(465 * 2);
     // this handles the change from hour to minute. No longer playing the hour.
-    Serial.println("minute " + (String)time_minute);
-    player.StartPlaying(minuteWav[time_minute]);
-    Serial.println("HOUR->MINUTE");
-    rv = SPEAK_MINUTE;
+//    Serial.println("minute " + (String)time_minute);
+//    player.StartPlaying(minuteWav[time_minute]);
+//    Serial.println("HOUR->MINUTE");
+//    rv = SPEAK_MINUTE;
+  rv = WAITING;
   }
   return rv;
 }
@@ -141,9 +141,7 @@ SpeechState DoWaiting() {
     rv = SPEAK_HOUR;
     prevTime = currTime;
   }
-  
-//  Serial.println(touchRead(T0)); // very useful in determining threshold - prints pin reading
-  
+//  Serial.println(touchRead(T0));
   events();
   return rv;
 }

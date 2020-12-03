@@ -15,12 +15,15 @@ public:
     WavPlayer();
     bool StartPlaying(const unsigned char *data);
     bool Update();
+    bool DonePlaying();
 
 protected:
     WavHeader header;
     unsigned const char* TheData;
     uint32_t DataIdx=0;
     bool isValid;
+    uint32_t play_start_time;
+    uint32_t play_end_time;
 
     void DumpWavHeader(WavHeader* Wav);
     bool ValidWavData(WavHeader* Wav);

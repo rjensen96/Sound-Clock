@@ -70,9 +70,9 @@
 const unsigned char *hourWav[] = {__12_wav, __1_wav, __2_wav, __3_wav, __4_wav, __5_wav, __6_wav, __7_wav, __8_wav, __9_wav, __10_wav,__11_wav,__12_wav};
 const unsigned char *minuteWav[] = {
 	__01_wav, __01_wav, __02_wav, __03_wav, __04_wav, __05_wav, __06_wav, __07_wav, __08_wav, __09_wav, 
-	__11_wav, __11_wav, __12_wav, __13_wav, __14_wav, __15_wav, __16_wav, __17_wav, __18_wav, __19_wav, 
-	__21_wav, __21_wav, __22_wav, __23_wav, __24_wav, __25_wav, __26_wav, __27_wav, __28_wav, __29_wav, 
-	__31_wav, __31_wav, __32_wav, __33_wav, __34_wav, __35_wav, __36_wav, __37_wav, __38_wav, __39_wav, 
-	__41_wav, __41_wav, __42_wav, __43_wav, __44_wav, __45_wav, __46_wav, __47_wav, __48_wav, __49_wav, 
-	__51_wav, __51_wav, __52_wav, __53_wav, __54_wav, __55_wav, __56_wav, __57_wav, __58_wav, __59_wav
+	__10_wav, __11_wav, __12_wav, __13_wav, __14_wav, __15_wav, __16_wav, __17_wav, __18_wav, __19_wav, 
+	__20_wav, __21_wav, __22_wav, __23_wav, __24_wav, __25_wav, __26_wav, __27_wav, __28_wav, __29_wav, 
+	__30_wav, __31_wav, __32_wav, __33_wav, __34_wav, __35_wav, __36_wav, __37_wav, __38_wav, __39_wav, 
+	__40_wav, __41_wav, __42_wav, __43_wav, __44_wav, __45_wav, __46_wav, __47_wav, __48_wav, __49_wav, 
+	__50_wav, __51_wav, __52_wav, __53_wav, __54_wav, __55_wav, __56_wav, __57_wav, __58_wav, __59_wav
 };
