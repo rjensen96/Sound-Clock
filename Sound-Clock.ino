@@ -15,7 +15,7 @@ int time_minute;
 
 const int STATUS_LED = 10;
 const int BUTTON_PIN = 37;
-const int SPEAK_TIMEOUT = 10000;
+const int SPEAK_TIMEOUT = 5000;
 
 // TODO: 
 // update IDE... need spiffs
@@ -91,6 +91,7 @@ SpeechState SpeakHour() {
   SpeechState rv = SPEAK_HOUR;
 
   if (!player.Update()) { 
+    delay(465 * 2);
     // this handles the change from hour to minute. No longer playing the hour.
     Serial.println("minute " + (String)time_minute);
     player.StartPlaying(minuteWav[time_minute]);
@@ -118,8 +119,8 @@ SpeechState DoWaiting() {
   if(currTime - prevTime >= SPEAK_TIMEOUT) {
 
     // this handles the change from hour to minute. We are done playing the hour.  Now changing states to the SPEAK_MINUTE state.
-    time_hour = LocalTime.hour() % 12;
-    time_minute = LocalTime.minute() / 5 * 5;
+   time_hour = LocalTime.hour() % 12;
+   time_minute = LocalTime.minute() / 5 * 5;
     Serial.println("Got time: hour " + (String)time_hour + " and minute " + (String)time_minute);
     
     Serial.println("hour " + (String)time_hour);
@@ -128,6 +129,7 @@ SpeechState DoWaiting() {
     rv = SPEAK_HOUR;
     prevTime = currTime;
   }
+  Serial.println(touchRead(T0));
   events();
   return rv;
 }

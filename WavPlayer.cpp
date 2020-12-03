@@ -1,43 +1,45 @@
 #include "WavPlayer.h"
 
-i2s_config_t WavPlayer::i2s_config = {
-    .mode = (i2s_mode_t)(I2S_MODE_MASTER | I2S_MODE_TX),
-    .sample_rate = 44100,                            // Note, this will be changed later
-    .bits_per_sample = I2S_BITS_PER_SAMPLE_16BIT,
-    .channel_format = I2S_CHANNEL_FMT_RIGHT_LEFT,
-    .communication_format = (i2s_comm_format_t)(I2S_COMM_FORMAT_I2S | I2S_COMM_FORMAT_I2S_MSB),
-    .intr_alloc_flags = ESP_INTR_FLAG_LEVEL1,       // high interrupt priority
-    .dma_buf_count = 8,                             // 8 buffers
-    .dma_buf_len = 1024,                            // 1K per buffer, so 8K of buffer space
-    .use_apll=0,
-    .tx_desc_auto_clear= true, 
-    .fixed_mclk=-1    
-};
-
-i2s_pin_config_t WavPlayer::pin_config = {
-    .bck_io_num = BCK_IO_PIN,                                 // The bit clock connectiom, goes to pin 27 of ESP32
-    .ws_io_num = WS_IO_PIN,                                  // Word select, also known as word select or left right clock
-    .data_out_num = DATA_OUT_PIN,                               // Data out from the ESP32, connect to DIN on 38357A
-    .data_in_num = I2S_PIN_NO_CHANGE                  // we are not interested in I2S data into the ESP32
-};
-
-
+WavPlayer::WavPlayer() {
+  i2s_config_t i2s_config = {
+      .mode = (i2s_mode_t)(I2S_MODE_MASTER | I2S_MODE_TX),
+      .sample_rate = 44100,                            // Note, this will be changed later
+      .bits_per_sample = I2S_BITS_PER_SAMPLE_16BIT,
+      .channel_format = I2S_CHANNEL_FMT_RIGHT_LEFT,
+      .communication_format = (i2s_comm_format_t)(I2S_COMM_FORMAT_I2S | I2S_COMM_FORMAT_I2S_MSB),
+      .intr_alloc_flags = ESP_INTR_FLAG_LEVEL1,       // high interrupt priority
+      .dma_buf_count = 8,                             // 8 buffers
+      .dma_buf_len = 1024,                            // 1K per buffer, so 8K of buffer space
+      .use_apll=0,
+      .tx_desc_auto_clear= true, 
+      .fixed_mclk=-1    
+  };
+  
+  i2s_pin_config_t pin_config = {
+      .bck_io_num = BCK_IO_PIN,                                 // The bit clock connectiom, goes to pin 27 of ESP32
+      .ws_io_num = WS_IO_PIN,                                  // Word select, also known as word select or left right clock
+      .data_out_num = DATA_OUT_PIN,                               // Data out from the ESP32, connect to DIN on 38357A
+      .data_in_num = I2S_PIN_NO_CHANGE                  // we are not interested in I2S data into the ESP32
+  };
+  
+  i2s_driver_install(i2s_num, &i2s_config, 0, NULL);        // ESP32 will allocated resources to run I2S
+  i2s_set_pin(i2s_num, &pin_config);                        // Tell it the pins you will be using
+  isValid = false;
+}
 
 bool WavPlayer::StartPlaying(const unsigned char *data) {
-    memcpy(&header,data,44);                     // Copy the header part of the wav data into our structure
-    //DumpWavHeader(&header);                          // Dump the header data to serial, optional!
+    memcpy(&header,data,44);                                                // Copy the header part of the wav data into our structure
+    DumpWavHeader(&header);                                               // Dump the header data to serial, optional!
     if(ValidWavData(&header))
     {
-        i2s_driver_install(i2s_num, &i2s_config, 0, NULL);        // ESP32 will allocated resources to run I2S
-        i2s_set_pin(i2s_num, &pin_config);                        // Tell it the pins you will be using
-        i2s_set_sample_rates(i2s_num, header.SampleRate);      //set sample rate 
-        TheData=data + sizeof(header);                                       // set to start of data  
+        i2s_set_sample_rates(i2s_num, header.SampleRate);                   //set sample rate 
+        TheData=data + sizeof(header);                                      // set to start of data  
         DataIdx = 0;
         isValid = true;
-        Serial.println("StartPlaying: Valid header");
+//        Serial.println("StartPlaying: Valid header");
     }
     else
-        isValid = false;                     
+        isValid = false;
 }
 
 bool WavPlayer::Update() {
