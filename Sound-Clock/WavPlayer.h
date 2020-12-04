@@ -4,7 +4,7 @@
 
 // I2S physical wiring connection pins
 const int BCK_IO_PIN = 27;
-const int WS_IO_PIN = 26; // 33 has also worked, but I started getting a lot of weird crashes;
+const int WS_IO_PIN = 26; // 33 also works
 const int DATA_OUT_PIN = 25;
 
 static const i2s_port_t i2s_num = I2S_NUM_0;  // i2s port number
