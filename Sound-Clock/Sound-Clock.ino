@@ -2,6 +2,7 @@
 #include <WiFi.h>
 #include <ezTime.h>
 #include "WavPlayer.h"
+#include "VolumeSelector.h"
 #include "sound/WavData.h"
 
 WavPlayer player;
@@ -15,6 +16,8 @@ int time_minute;
 
 const int STATUS_LED = 10;
 const int BUTTON_PIN = 37;
+const int VOLUME_RESISTOR_PIN = 12;
+const int VOLUME_NORESISTOR_PIN = 13;
 const int SPEAK_TIMEOUT = 5000;
 
 int touchThreshold = 60; // copper plate sensitivity level
@@ -67,6 +70,9 @@ void setup() {
   Serial.println("synced");
   
   LocalTime.setLocation(LOCAL_TIMEZONE);
+
+  VolumeSelector vs(VOLUME_RESISTOR_PIN, VOLUME_NORESISTOR_PIN);
+  vs.SetLevel(VolumeSelector::EXTRA_LOUD);
 
   speechstate = WAITING;
   Serial.println("Done with setup()");
