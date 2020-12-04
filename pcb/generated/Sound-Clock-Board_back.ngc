@@ -10,16 +10,6 @@ G01 F600.00000 ( Feedrate. )
 
 
 G00 Z25.00000 (Retract to tool change height)
-T0
-M5      (Spindle stop.)
-G04 P1.00000 (Wait for spindle to stop)
-(MSG, Change tool bit to mill diameter 0.50000mm)
-M6      (Tool change.)
-M0      (Temporary machine stop.)
-M3 ( Spindle on clockwise. )
-G04 P1.00000 (Wait for spindle to get up to speed)
-G04 P0 ( dwell for no time -- G64 should not smooth over this point )
-G00 Z5.00000 ( retract )
 
 G00 X34.47374 Y5.07997 ( rapid move to begin. )
 G01 F300.00000
@@ -25882,8 +25872,5 @@ G01 X11.81377 Y40.83997
 G04 P0 ( dwell for no time -- G64 should not smooth over this point )
 G00 Z25.000000 ( retract )
 
-M5 ( Spindle off. )
-G04 P1.000000
-M9 ( Coolant off. )
 M2 ( Program end. )
 
