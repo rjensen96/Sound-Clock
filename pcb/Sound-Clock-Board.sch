@@ -36,28 +36,6 @@ F 3 "~" H 6500 4600 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector_Generic:Conn_01x01 J5
-U 1 1 5FC0C89E
-P 7900 3600
-F 0 "J5" H 7980 3642 50  0000 L CNN
-F 1 "ToTouchPlate" H 7980 3551 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical" H 7900 3600 50  0001 C CNN
-F 3 "~" H 7900 3600 50  0001 C CNN
-	1    7900 3600
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector_Generic:Conn_01x02 J4
-U 1 1 5FC0CC94
-P 7900 4500
-F 0 "J4" H 7980 4492 50  0000 L CNN
-F 1 "ToConfigBtn" H 7980 4401 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 7900 4500 50  0001 C CNN
-F 3 "~" H 7900 4500 50  0001 C CNN
-	1    7900 4500
-	1    0    0    -1  
-$EndComp
-$Comp
 L Connector_Generic:Conn_01x07 J3
 U 1 1 5FC0835B
 P 4650 2950
@@ -73,10 +51,6 @@ Wire Wire Line
 Wire Wire Line
 	4850 5250 4850 2750
 Wire Wire Line
-	3000 5150 4650 5150
-Wire Wire Line
-	4650 5150 4650 2750
-Wire Wire Line
 	3000 4650 4450 4650
 Wire Wire Line
 	4450 4650 4450 2750
@@ -89,23 +63,56 @@ Wire Wire Line
 Wire Wire Line
 	4550 4450 4550 2750
 Wire Wire Line
-	6300 5300 7700 5300
+	6300 5300 7750 5300
 Wire Wire Line
-	7700 5300 7700 4600
+	7750 5300 7750 4600
 Wire Wire Line
 	6300 5100 7600 5100
 Wire Wire Line
 	7600 5100 7600 4500
 Wire Wire Line
-	7600 4500 7700 4500
+	7600 4500 7750 4500
 Wire Wire Line
 	6300 4900 7350 4900
 Wire Wire Line
-	7350 4900 7350 3600
+	7350 4900 7350 4400
 Wire Wire Line
-	7350 3600 7700 3600
+	7350 4400 7750 4400
+$Comp
+L Connector_Generic:Conn_01x03 J4
+U 1 1 5FC97F1D
+P 7950 4500
+F 0 "J4" H 8030 4542 50  0000 L CNN
+F 1 "Touch sensor and config switch" H 8030 4451 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 7950 4500 50  0001 C CNN
+F 3 "~" H 7950 4500 50  0001 C CNN
+	1    7950 4500
+	1    0    0    -1  
+$EndComp
 Wire Wire Line
-	4950 5450 3000 5450
+	4950 5150 4950 2750
 Wire Wire Line
-	4950 2750 4950 5450
+	3000 5150 4950 5150
+Wire Wire Line
+	3000 4850 3850 4850
+Wire Wire Line
+	3000 4950 4650 4950
+Wire Wire Line
+	4650 4950 4650 4850
+$Comp
+L Device:R_Small_US R1
+U 1 1 5FCA8101
+P 3950 4850
+F 0 "R1" V 3745 4850 50  0000 C CNN
+F 1 "R_Small_US" V 3836 4850 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical" H 3950 4850 50  0001 C CNN
+F 3 "~" H 3950 4850 50  0001 C CNN
+	1    3950 4850
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4050 4850 4650 4850
+Connection ~ 4650 4850
+Wire Wire Line
+	4650 4850 4650 2750
 $EndSCHEMATC
