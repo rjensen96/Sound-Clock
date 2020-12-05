@@ -160,6 +160,7 @@ SpeechState DoWaiting() {
     // this handles the change from hour to minute. We are done playing the hour.  Now changing states to the SPEAK_MINUTE state.
 //    time_hour = LocalTime.hour() % 12;
 //    time_minute = LocalTime.minute() / 5 * 5;
+    timeDB.UpdateTime();
     time_hour = timeDB.GetHour();
     time_minute = timeDB.GetMinute();  
     Serial.println("Got time: hour " + (String)time_hour + " and minute " + (String)time_minute);

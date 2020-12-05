@@ -17,6 +17,9 @@ protected:
     String timezone;
     unsigned int hour;
     unsigned int minute;
+    long last_query_timestamp;
+    long last_query_millis;
+    bool SendRequest();
 };
 
 #endif
