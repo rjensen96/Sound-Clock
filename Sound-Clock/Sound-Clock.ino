@@ -133,7 +133,7 @@ bool IsTriggered() {
   int touchTriggerFrames = 10;
   int currentValue = touchRead(T0);
 
-  Serial.println(currentValue);
+//  Serial.println(currentValue);
   
   if(currentValue < touchThreshold) {
     touchFrames++;
@@ -160,8 +160,8 @@ SpeechState DoWaiting() {
     // this handles the change from hour to minute. We are done playing the hour.  Now changing states to the SPEAK_MINUTE state.
 //    time_hour = LocalTime.hour() % 12;
 //    time_minute = LocalTime.minute() / 5 * 5;
-time_hour = 11;
-time_minute = 38;  
+    time_hour = timeDB.GetHour();
+    time_minute = timeDB.GetMinute();  
     Serial.println("Got time: hour " + (String)time_hour + " and minute " + (String)time_minute);
     
     Serial.println("hour " + (String)time_hour);

@@ -3,10 +3,11 @@
 #include "TimeDB.h"
 #include <HTTPClient.h>
 #include <Arduino_JSON.h>
+#include <time.h>  
 
 const char *TimeDB::APIKey = "I0K9WRO2BVRO";
 
-TimeDB::TimeDB() {
+TimeDB::TimeDB() : hour(0), minute(0) {
 }
 
 bool TimeDB::SetTimezone(String timezone) {
@@ -33,12 +34,14 @@ bool TimeDB::UpdateTime() {
     Serial.println(httpResponseCode);
     String payload = http.getString();
     JSONVar myObject = JSON.parse(payload);
-    JSONVar value = myObject["formatted"];
-    String datestr = (const char *)value;
-    Serial.println(payload);
-    Serial.println("***********************************");
-    Serial.println(datestr);
-    Serial.println("***********************************");
+    long timestamp = myObject["timestamp"];
+    
+    struct tm * ptm;
+    ptm = gmtime ( &timestamp );
+    hour = ptm->tm_hour;
+    minute = ptm->tm_min;
+    Serial.println("HOUR IS: " + (String)hour);
+    Serial.println("MINUTE IS: " + (String)minute);
   }
   else {
     Serial.print("Error code: ");
@@ -46,12 +49,4 @@ bool TimeDB::UpdateTime() {
   }
   // Free resources
   http.end();
-}
-
-int TimeDB::GetHour() {
-
-}
-
-int TimeDB::GetMinute() {
-
 }

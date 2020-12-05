@@ -9,12 +9,14 @@ public:
     TimeDB();
     bool SetTimezone(String timezone);
     bool UpdateTime();
-    virtual int GetHour();
-    virtual int GetMinute();
+    virtual int GetHour() {return hour;}
+    virtual int GetMinute() {return minute;}
 
 protected:
     static const char *APIKey;
     String timezone;
+    unsigned int hour;
+    unsigned int minute;
 };
 
 #endif

@@ -7,6 +7,7 @@
 #include "7.h"
 #include "8.h"
 #include "9.h"
+#include "oclock.h"
 #include "01.h"
 #include "02.h"
 #include "03.h"
@@ -70,7 +71,7 @@
 const unsigned char *hourWav[] = {__12_wav, __1_wav, __2_wav, __3_wav, __4_wav, __5_wav, __6_wav, __7_wav, __8_wav, __9_wav, __10_wav,__11_wav,__12_wav};
 
 const unsigned char *minuteWav[] = {
-	__01_wav, __05_wav, __10_wav, __15_wav, __20_wav, __25_wav, 
+	oclock_wav, __05_wav, __10_wav, __15_wav, __20_wav, __25_wav, 
 	__30_wav, __35_wav, __40_wav, __45_wav, __50_wav, __55_wav
 };
 
