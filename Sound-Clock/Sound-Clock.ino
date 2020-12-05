@@ -55,7 +55,7 @@ void setup() {
 
   // If there's no configuration or the button is pressed on bootup, go into config mode
   String ssid, password;
-  if(!configurer.GetConfig(ssid, password) || digitalRead(BUTTON_PIN) == 0) {
+  if(!configurer.GetConfig(ssid, password)) {
     Serial.println("***************** CONFIGURE ******************");
     configurer.setup();
     speechstate = CONFIGURING;
@@ -107,7 +107,7 @@ SpeechState SpeakHour() {
   if (!player.Update()) { 
     // this handles the change from hour to minute. No longer playing the hour.
     Serial.println("minute " + (String)time_minute);
-    player.StartPlaying(minuteWav[time_minute]);
+    player.StartPlaying(minuteWav[time_minute / 5]);
     Serial.println("HOUR->MINUTE");
     rv = SPEAK_MINUTE;
   }
